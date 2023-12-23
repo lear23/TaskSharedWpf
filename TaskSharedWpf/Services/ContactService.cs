@@ -12,7 +12,7 @@ namespace TaskSharedWpf.Services;
 public class ContactService 
 {
 
-    private readonly IFileService _fileService = new FileService();
+    private readonly FileService _fileService = new FileService();
     private List<Contact> _contacts = [];
     private readonly string _filePath = @"C:\Users\User\source\repos\TaskSharedWpf";
 
@@ -30,15 +30,42 @@ public class ContactService
 
 
         _contacts.Add(contact);
-      
+        try
+        {
+            if (!_contacts.Any(x => x.Email == contact.Email))
+            {
+                _contacts.Add(contact);
+
+                var json = JsonConvert.SerializeObject(contact, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects, Formatting = Formatting.Indented });
+
+                var result = _fileService.SaveContentToFile(_filePath, json);
+
+            }
+
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
 
     }
 
     public IEnumerable<Contact> GetContactsFromList()
     {
 
+        
+        try
+        {
+            var content = _fileService.GetContentFromFile(_filePath);
+            if (!string.IsNullOrEmpty(content))
+            {
+                _contacts = JsonConvert.DeserializeObject<List<Contact>>(content, new JsonSerializerSettings{ TypeNameHandling = TypeNameHandling.Objects })!;
+              
+            }
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+
         return _contacts;
-      
+
+
+        
     }
 
     //public Contact GetContactFromList(Contact contact)
@@ -52,7 +79,7 @@ public class ContactService
 
     public void Update(Contact contact)
     {
-        var contactItem = _contacts.FirstOrDefault(x => x.Email == contact.Email);
+        var contactItem = _contacts.FirstOrDefault(x => x.Id == contact.Id);
         if(contactItem != null)
         {
             contactItem = contact;
@@ -60,11 +87,14 @@ public class ContactService
     }
     public void Remove(Contact contact)
     {
-        var contactItem = _contacts.FirstOrDefault(x => x.Email == contact.Email);
-        if(contactItem != null)
+       
+
+        var contactItem = _contacts.FirstOrDefault(x => x.Id == contact.Id);
+        if (contactItem != null)
         {
             _contacts.Remove(contactItem);
         }
+
     }
 
 

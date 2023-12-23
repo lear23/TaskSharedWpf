@@ -48,7 +48,7 @@ namespace WpfAppTask.ViewsModels
         public void Remove(Contact contact)
         {
              _contactService.Remove(contact);
-            _contacts = new ObservableCollection<Contact>(_contactService.GetContactsFromList());
+            Contacts = new ObservableCollection<Contact>(_contactService.GetContactsFromList());
 
         }
     }

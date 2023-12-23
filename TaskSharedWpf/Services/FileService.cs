@@ -5,7 +5,7 @@ using TaskSharedWpf.Interfaces;
 
 namespace TaskSharedWpf.Services;
 
-public class FileService : IFileService
+public class FileService 
 {
 
     public bool SaveContentToFile(string filePath, string content)

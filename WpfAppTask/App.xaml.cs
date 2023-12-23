@@ -18,6 +18,7 @@ namespace WpfAppTask
             _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
                 services.AddSingleton<ContactService>();
+                services.AddSingleton<FileService>();
 
                 services.AddTransient<ListContactViewModel>();
                 services.AddTransient<ListContactView>();
