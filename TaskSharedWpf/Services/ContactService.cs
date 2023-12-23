@@ -14,7 +14,7 @@ public class ContactService
 
     private readonly FileService _fileService = new FileService();
     private List<Contact> _contacts = [];
-    private readonly string _filePath = @"C:\Users\User\source\repos\TaskSharedWpf";
+    private readonly string _filePath = @"C:\Users\User\source\repos\TaskSharedWpf\WpfAppTask\contacts.json"; 
 
     public Contact currentContact { get; set; } = null!;
 
@@ -25,25 +25,26 @@ public class ContactService
     /// <returns>return true if successful or false is it fails or contact already exist</returns>
     /// 
 
-    public void AddContact(Contact contact)
+    public bool AddContact(Contact contact)
     {
-
-
-        _contacts.Add(contact);
+       
         try
         {
             if (!_contacts.Any(x => x.Email == contact.Email))
             {
                 _contacts.Add(contact);
 
-                var json = JsonConvert.SerializeObject(contact, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects, Formatting = Formatting.Indented });
+                var json = JsonConvert.SerializeObject(_contacts, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects, Formatting = Formatting.Indented });
 
                 var result = _fileService.SaveContentToFile(_filePath, json);
-
+                return result;
+               
             }
 
         }
         catch (Exception ex) { Debug.WriteLine(ex.Message); }
+
+        return false;
 
     }
 
@@ -56,7 +57,7 @@ public class ContactService
             var content = _fileService.GetContentFromFile(_filePath);
             if (!string.IsNullOrEmpty(content))
             {
-                _contacts = JsonConvert.DeserializeObject<List<Contact>>(content, new JsonSerializerSettings{ TypeNameHandling = TypeNameHandling.Objects })!;
+                _contacts = JsonConvert.DeserializeObject<List<Contact>>(content, new JsonSerializerSettings{ TypeNameHandling = TypeNameHandling.All }) ?? [];
               
             }
         }
@@ -77,25 +78,65 @@ public class ContactService
     //}
 
 
-    public void Update(Contact contact)
+    //public void Update(Contact contact)
+    //{
+    //    var contactItem = _contacts.FirstOrDefault(x => x.Id == contact.Id);
+    //    if(contactItem != null)
+    //    {
+    //        contactItem = contact;
+    //    }
+    //}
+    public bool Update(Contact contact)
     {
-        var contactItem = _contacts.FirstOrDefault(x => x.Id == contact.Id);
-        if(contactItem != null)
+        try
         {
-            contactItem = contact;
+            if (_contacts.Any(x=> x.Email == contact.Email))
+            {
+                _contacts.Remove(contact);
+                _contacts.Add(contact);
+
+                string json = JsonConvert.SerializeObject(_contacts, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.None });
+
+                var result = _fileService.SaveContentToFile(_filePath, json);
+                return result;
+            }
         }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("ContactService-UpdateContact:: " + ex.Message);
+        }
+        return false;
     }
+
+
+
     public void Remove(Contact contact)
     {
-       
-
-        var contactItem = _contacts.FirstOrDefault(x => x.Id == contact.Id);
-        if (contactItem != null)
+        try
         {
-            _contacts.Remove(contactItem);
-        }
+            var contactItem = _contacts.FirstOrDefault(x => x.Email == contact.Email);
 
+            if (contactItem != null)
+            {
+                _contacts.Remove(contactItem);
+
+                // Serialize the updated contacts list
+                string json = JsonConvert.SerializeObject(_contacts, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.None });
+
+                // Save the updated list to the file
+                var result = _fileService.SaveContentToFile(_filePath, json);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("ContactService-RemoveContact:: " + ex.Message);
+        }
     }
 
 
 }
+
+
+
+
+
