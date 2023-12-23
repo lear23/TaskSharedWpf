@@ -3,7 +3,7 @@ using System.Windows;
 using WpfAppTask.ViewsModels;
 
 
-namespace WpfAppTask.Views
+namespace WpfAppTask
 {
    
     public partial class MainWindow : Window

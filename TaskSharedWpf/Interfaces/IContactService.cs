@@ -1,14 +1,14 @@
 ﻿
 
-using TaskSharedWpf.Models;
+//using TaskSharedWpf.Models;
 
-namespace TaskSharedWpf.Interfaces;
+//namespace TaskSharedWpf.Interfaces;
 
-public interface IContactService
-{
-    bool AddContact(Contact contact);
-    IEnumerable<Contact> GetContactFromList();
+//public interface IContactService
+//{
+//   void AddContact(Contact contact);
+//    IEnumerable<Contact> GetContactsFromList();
 
-    Contact GetContactFromList(Contact contact);
+//    Contact GetContactFromList(Contact contact);
 
-}
+//}

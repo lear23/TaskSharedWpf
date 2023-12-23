@@ -15,12 +15,9 @@ namespace WpfAppTask.ViewsModels
          
         }
 
+
         [ObservableProperty]
         private ObservableObject currentViewModel = null!;
-
-       
-
-
 
     }
 }

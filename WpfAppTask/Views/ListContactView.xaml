@@ -12,7 +12,7 @@
              d:DesignHeight="450" d:DesignWidth="300">
 
 
-
+       
     <Grid Margin="20">
         
             <Grid.RowDefinitions>
@@ -20,9 +20,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Content="New Contact" Command="{Binding NavigateToAddCommand }" Padding="5"/>
+        <Button Grid.Row="0" Content="New Contact" Command="{Binding NavigateToAddCommand }" Padding="5" />      
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Contacts}" HorizontalContentAlignment="Stretch">
+
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Contacts}" HorizontalContentAlignment="Stretch" Margin="0,20,0,0">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:Contact}" >
                     <Grid>
@@ -30,18 +32,21 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
+                        
                         <TextBlock Grid.Column="0" Text="{Binding FirstName}" VerticalAlignment="Center" />
+            
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button Content="Edit" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.NavigateToEditCommand, RelativeSource={ RelativeSource AncestorType={x:Type UserControl}}}" />
-                            <Button Content="Delete" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={ RelativeSource AncestorType={x:Type UserControl}}}" />                          
+                            <Button Content="Edit" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.NavigateToEditCommand, RelativeSource={ RelativeSource AncestorType={x:Type UserControl}}}" Padding="5"  Margin="5,0,0,0"/>
+                            <Button Content="Delete" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={ RelativeSource AncestorType={x:Type UserControl}}}" Padding="5"  Margin="5,0,0,0" />
+                          
                         </StackPanel>
-                    </Grid>
+                    </Grid>                  
 
                 </DataTemplate>
             </ListView.ItemTemplate>            
         </ListView>
-      
 
 
     </Grid>
+    
 </UserControl>

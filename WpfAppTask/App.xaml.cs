@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Configuration;
-using System.Data;
 using System.Windows;
+using TaskSharedWpf.Services;
 using WpfAppTask.Views;
 using WpfAppTask.ViewsModels;
 
@@ -18,6 +17,7 @@ namespace WpfAppTask
         {
             _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
+                services.AddSingleton<ContactService>();
 
                 services.AddTransient<ListContactViewModel>();
                 services.AddTransient<ListContactView>();

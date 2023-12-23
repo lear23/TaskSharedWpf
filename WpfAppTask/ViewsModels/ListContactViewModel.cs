@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
 using TaskSharedWpf.Models;
+using TaskSharedWpf.Services;
 
 
 namespace WpfAppTask.ViewsModels
@@ -12,10 +13,14 @@ namespace WpfAppTask.ViewsModels
     public partial class ListContactViewModel: ObservableObject
     {
         private readonly IServiceProvider _sp;
+        private readonly ContactService _contactService;
 
-        public ListContactViewModel(IServiceProvider sp)
+        public ListContactViewModel(IServiceProvider sp, ContactService contactService)
         {
             _sp = sp;
+            _contactService = contactService;
+
+            _contacts = new ObservableCollection<Contact>(_contactService.GetContactsFromList());
         }
 
 
@@ -31,15 +36,19 @@ namespace WpfAppTask.ViewsModels
         }
         [RelayCommand]
 
-        public void NavigateToEdit()
+        public void NavigateToEdit(Contact contact)
         {
+            _contactService.currentContact = contact;
+
             var mainViewModel = _sp.GetRequiredService<MainViewModel>();
             mainViewModel.CurrentViewModel = _sp.GetRequiredService<EditContactViewModel>();
         }
         [RelayCommand]
 
-        public void Remove()
+        public void Remove(Contact contact)
         {
+             _contactService.Remove(contact);
+            _contacts = new ObservableCollection<Contact>(_contactService.GetContactsFromList());
 
         }
     }
