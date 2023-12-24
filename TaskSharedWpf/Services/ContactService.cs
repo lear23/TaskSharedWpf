@@ -4,7 +4,7 @@
 
 using Newtonsoft.Json;
 using System.Diagnostics;
-using TaskSharedWpf.Interfaces;
+
 using TaskSharedWpf.Models;
 
 namespace TaskSharedWpf.Services;
@@ -75,23 +75,6 @@ public class ContactService
     }
 
 
-    //public Contact GetContactFromList(Contact contact)
-    //{
-
-    //   return contact;
-
-
-    //}
-
-
-    //public void Update(Contact contact)
-    //{
-    //    var contactItem = _contacts.FirstOrDefault(x => x.Id == contact.Id);
-    //    if(contactItem != null)
-    //    {
-    //        contactItem = contact;
-    //    }
-    //}
     public bool Update(Contact contact)
     {
         try
@@ -106,6 +89,7 @@ public class ContactService
                 var result = _fileService.SaveContentToFile(_filePath, json);
                 return result;
             }
+
         }
         catch (Exception ex)
         {

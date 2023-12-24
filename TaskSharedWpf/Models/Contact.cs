@@ -1,6 +1,6 @@
 ﻿
 
-using TaskSharedWpf.Interfaces;
+
 
 namespace TaskSharedWpf.Models
 {
