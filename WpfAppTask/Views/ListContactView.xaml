@@ -19,8 +19,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
- 
-            <Button Content="New Contact" Command="{Binding NavigateToAddCommand}" Padding="5" Margin="0,15" Background="#EBA87A"  Foreground="#090909" >
+
+            <Button Content="New Contact" Command="{Binding NavigateToAddCommand}" Padding="5" Margin="0,15" Background="#EBA87A"  Foreground="#090909" BorderThickness="0" BorderBrush="Transparent" >
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Template">

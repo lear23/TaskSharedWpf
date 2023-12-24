@@ -25,7 +25,7 @@
                     <TextBox Text="{Binding Contact.Phone}" Padding="2,5" />
                     <Label Content="Email" />
                     <TextBox Text="{Binding Contact.Email}" Padding="2,5" />
-                    <Button Content="Add New Contact" Command="{Binding AddCommand}" Padding="5" Margin="0,15" Background="#EBA87A"  Foreground="#090909" >
+                <Button Content="Add New Contact" Command="{Binding AddCommand}" Padding="5" Margin="0,15" Background="#EBA87A"  Foreground="#090909" BorderThickness="0" BorderBrush="Transparent" >
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Template">
