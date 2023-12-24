@@ -11,51 +11,66 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
 
+    <Grid Background="#EDD0B2">
 
-       
-    <Grid Margin="20">
-        
+        <Grid Margin="20" >
+
             <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+ 
+            <Button Content="New Contact" Command="{Binding NavigateToAddCommand}" Padding="5" Margin="0,15" Background="#EBA87A"  Foreground="#090909" >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10" Padding="5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
 
-        <Button Grid.Row="0" Content="New Contact" Command="{Binding NavigateToAddCommand }" Padding="5" />
+            <ListView Grid.Row="1" ItemsSource="{Binding Contacts}" HorizontalContentAlignment="Stretch" Margin="0,20,0,0" Background="WhiteSmoke" >
+                <ListView.ItemTemplate >
+                    <DataTemplate DataType="{x:Type models:Contact}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding FirstName}" />
+                                    <TextBlock Text=" " />
+                                    <TextBlock Text="{Binding LastName}" />
+                                </StackPanel>
+                                <TextBlock Text="{Binding Email}"  FontSize="12"/>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Contacts}" HorizontalContentAlignment="Stretch" Margin="0,20,0,0">
-               <ListView.ItemTemplate>
-                   <DataTemplate DataType="{x:Type models:Contact}" >
-                      <Grid>
-                           <Grid.ColumnDefinitions>
-                               <ColumnDefinition Width="*" />
-                               <ColumnDefinition Width="Auto" />
-                           </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding FirstName}" />
-                                <TextBlock Text=" " />
-                                <TextBlock Text="{Binding LastName}" />
                             </StackPanel>
-                            <TextBlock Text="{Binding Email}"  FontSize="12"/>
 
-                        </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Button Content="Edit" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.NavigateToEditCommand, RelativeSource={ RelativeSource AncestorType={x:Type UserControl}}}"  Padding="4"  Margin="5,0,0,0" Background="#EBA87A"  Foreground="#090909" />
+                                <Button Content="Delete" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.RemoveCommand, RelativeSource={ RelativeSource AncestorType={x:Type UserControl}}}"  Padding="4"  Margin="5,0,0,0" Background="#EBA87A"  Foreground="#090909" />
 
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                               <Button Content="Edit" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.NavigateToEditCommand, RelativeSource={ RelativeSource AncestorType={x:Type UserControl}}}"  Padding="4"  Margin="5,0,0,0"/>
-                               <Button Content="Delete" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.RemoveCommand, RelativeSource={ RelativeSource AncestorType={x:Type UserControl}}}"  Padding="4"  Margin="5,0,0,0" />
-                     
-                           </StackPanel>
-                       </Grid>               
+                            </StackPanel>
+                        </Grid>
 
-                   </DataTemplate>
-               </ListView.ItemTemplate>            
-        </ListView>
-        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
 
 
+
+        </Grid>
     </Grid>
-    
+
 </UserControl>
 
 

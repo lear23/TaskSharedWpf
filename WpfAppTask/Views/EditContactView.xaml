@@ -11,14 +11,38 @@
              xmlns:local="clr-namespace:WpfAppTask.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
-    
-    
-    
-    <Grid Margin="20">
-        <StackPanel>
-            <Label Content="First Name" />
-            <TextBox Text="{Binding Contact.FirstName}" Padding="2,5" />
-            <Button Content="Edit Contact" Command="{Binding UpdateCommand}" Padding="5" Margin="0,15" />
-        </StackPanel>
+
+    <Grid Background="#EDD0B2">
+
+            <Grid Margin="20" >
+                <StackPanel>
+                    <Label Content="First Name" />
+                    <TextBox Text="{Binding Contact.FirstName}" Padding="2,5" />
+                    <Label Content="Last Name" />
+                    <TextBox Text="{Binding Contact.LastName}" Padding="2,5" />
+                    <Label Content="Address" />
+                    <TextBox Text="{Binding Contact.Address}" Padding="2,5" />
+                    <Label Content="Phone Number" />
+                    <TextBox Text="{Binding Contact.Phone}" Padding="2,5" />
+                    <Label Content="Email" />
+                    <TextBox Text="{Binding Contact.Email}" Padding="2,5" />
+               
+                <Button Content="Edit Contact" Command="{Binding UpdateCommand}" Padding="5" Margin="0,15" Background="#EBA87A"  Foreground="#090909" >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10" Padding="5">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+            </Grid>
     </Grid>
 </UserControl>
