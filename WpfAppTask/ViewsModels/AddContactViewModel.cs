@@ -22,15 +22,36 @@ namespace WpfAppTask.ViewsModels;
     [ObservableProperty]
     private Contact contact = new();
 
+    private bool showEmailExistsMessage;
+
+    public bool ShowEmailExistsMessage
+    {
+        get { return showEmailExistsMessage; }
+        set { SetProperty(ref showEmailExistsMessage, value); }
+    }
+
     [RelayCommand]
     private void Add()
     {
 
-        _contactService.AddContact(Contact);
+        if (!_contactService.ContactExists(Contact.Email))
+        {
+            _contactService.AddContact(Contact);
 
-        var mainViewModel = _sp.GetRequiredService<MainViewModel>();
-        mainViewModel.CurrentViewModel = _sp.GetRequiredService<ListContactViewModel>();
+            var mainViewModel = _sp.GetRequiredService<MainViewModel>();
+            mainViewModel.CurrentViewModel = _sp.GetRequiredService<ListContactViewModel>();
+        }
+        else
+        {
+         
+            ShowEmailExistsMessage = true;
+        }
     }
 
 
 }
+
+//_contactService.AddContact(Contact);
+
+//        var mainViewModel = _sp.GetRequiredService<MainViewModel>();
+//mainViewModel.CurrentViewModel = _sp.GetRequiredService<ListContactViewModel>();

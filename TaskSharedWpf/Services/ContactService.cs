@@ -69,12 +69,18 @@ public class ContactService
         
     }
 
+    public bool ContactExists(string email)
+    {
+        return _contacts.Any(x => x.Email == email);
+    }
+
+
     //public Contact GetContactFromList(Contact contact)
     //{
 
     //   return contact;
 
-     
+
     //}
 
 
@@ -135,8 +141,4 @@ public class ContactService
 
 
 }
-
-
-
-
 
