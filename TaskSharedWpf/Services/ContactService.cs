@@ -74,22 +74,25 @@ public class ContactService
         return _contacts.Any(x => x.Email == email);
     }
 
-
     public bool Update(Contact contact)
     {
         try
         {
-            if (_contacts.Any(x=> x.Email == contact.Email))
+            if (_contacts.Any(x => x.Email == contact.Email))
             {
-                _contacts.Remove(contact);
+                // Remove the existing contact
+                _contacts.RemoveAll(x => x.Email == contact.Email);
+
+                // Add the updated contact
                 _contacts.Add(contact);
 
+                // Serialize the updated contacts list
                 string json = JsonConvert.SerializeObject(_contacts, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.None });
 
+                // Save the updated list to the file
                 var result = _fileService.SaveContentToFile(_filePath, json);
                 return result;
             }
-
         }
         catch (Exception ex)
         {
